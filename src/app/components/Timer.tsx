@@ -5,32 +5,31 @@ type Props = {
 };
 
 const Timer = (props: Props) => {
-  const [time, setTime] = useState(120);
+  const [time, setTime] = useState(60);
   // const [started, setStarted] = useState(false)
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
+    let intervalId: NodeJS.Timeout | null = null;
 
     if (props.started) {
+      // console.log(props.started)
       intervalId = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
       }, 1000);
     }
 
     return () => {
-      clearInterval(intervalId);
+      if (intervalId) clearInterval(intervalId);
     };
   }, [props.started]);
 
+  const formatTime = (time: number): string => {
+    const minutes = Math.floor(time / 60).toString().padStart(2, "0");
+    const seconds = (time % 60).toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
   return (
-  <>
-  {
-    time>=60
-    ?
-    <div className="text-5xl font-semibold">{(time)}:{time%60}</div>
-    :
-    <div className="text-5xl font-semibold">00:{time}</div>
-  }
-  </>
+    <div className="text-5xl font-semibold p-2 text-white">{formatTime(time)}</div>
   )
 };
 

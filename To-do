@@ -1,6 +1,4 @@
 To-Do Features:
-1. Cursor to show where user is
-2. Backspace to correct mistakes
 3. Timer - 1min, 2min
 4. WPM - formulate words per minute
 5. Which keys are pressed wrong maximun number of times
@@ -11,3 +9,8 @@ To-Do Features:
 Bugs:
 1. Timer going negative
 2. Not showing wrong on first press, shows correct (Although I can say to press ENTER to start in such case it registers ENTER as first key and works fine)
+
+
+Done:
+1. Cursor to show where user is
+2. Backspace to correct mistakes

@@ -6,16 +6,17 @@ type Props = {
 
 const Timer = (props: Props) => {
   const [time, setTime] = useState(60);
-  // const [started, setStarted] = useState(false)
+
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | null = null;
+    console.log("first timer started")
+    let intervalId: NodeJS.Timeout | undefined;
 
     if (props.started) {
-      // console.log(props.started)
       intervalId = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
       }, 1000);
     }
+    
 
     return () => {
       if (intervalId) clearInterval(intervalId);
@@ -23,14 +24,18 @@ const Timer = (props: Props) => {
   }, [props.started]);
 
   const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60).toString().padStart(2, "0");
+    const minutes = Math.floor(time / 60)
+      .toString()
+      .padStart(2, "0");
     const seconds = (time % 60).toString().padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
   return (
-    <div className="text-5xl font-semibold p-2 text-white">{formatTime(time)}</div>
-  )
+    <div className="text-5xl font-semibold p-2 text-white">
+      {formatTime(time)}
+    </div>
+  );
 };
 
 export default Timer;

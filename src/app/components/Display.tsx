@@ -33,8 +33,9 @@ const Display = (props: Props) => {
     const captureKeydown = (event: KeyboardEvent) => {
       // if(!started && counter===1) setStarted(true);
       const keyPressed = event.key;
+
       const isAlphabetic = /^[A-Za-z,.\s]$/.test(keyPressed);
-      if(!started) {
+      if (!started) {
         setStarted(true);
         // console.log(startedRef.current);
       }
@@ -47,13 +48,27 @@ const Display = (props: Props) => {
           if (keyPressed === span.innerHTML) {
             span.style.color = "yellow";
             span.style.textDecoration = "none";
-          } else {
+          }else {
             span.style.color = "red";
-            span.style.borderRadius = "4px";
+            // span.style.borderRadius = "4px";
             span.style.textDecoration = "none";
             // span.style.background = "rgb(252, 165, 165)";
           }
           counterRef.current++;
+        }
+      }
+
+      if (keyPressed === "Backspace") {
+        // console.log("Backspace key pressed");
+        counterRef.current--;
+        const spanElements = document.querySelectorAll(".textBox > span");
+        if (counterRef.current < spanElements.length) {
+          const span = spanElements[counterRef.current] as HTMLElement;
+          const nextSpan = spanElements[counterRef.current + 1] as HTMLElement;
+          nextSpan.style.textDecoration = "none";
+
+          span.style.color = "#64748b";
+          span.style.textDecoration = "underline";
         }
       }
     };
@@ -80,7 +95,9 @@ const Display = (props: Props) => {
             Reset
           </button>
         ) : (
-          <p className="ml-2 text-2xl font-mono font-semibold">Start typing to start timer...</p>
+          <p className="ml-2 text-2xl font-mono font-semibold">
+            Press any key to start...
+          </p>
         )}
         <Timer started={started} />
       </div>

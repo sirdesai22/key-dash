@@ -9,6 +9,7 @@ const Display = (props: Props) => {
   // const [captureKeys, setCaptureKeys] = useState<string[]>([]);
   const [captureKeys, setCaptureKeys] = useState<string>("");
   const [started, setStarted] = useState(false);
+  const [time, setTime] = useState(60);
   // const startedRef = useRef(false);
   const counterRef = useRef(0);
 
@@ -30,11 +31,13 @@ const Display = (props: Props) => {
   }, [text]);
 
   useEffect(() => {
+    // var isEnter: boolean = false;
     const captureKeydown = (event: KeyboardEvent) => {
       // if(!started && counter===1) setStarted(true);
       const keyPressed = event.key;
 
       const isAlphabetic = /^[A-Za-z,.\s]$/.test(keyPressed);
+
       if (!started) {
         setStarted(true);
         // console.log(startedRef.current);
@@ -87,19 +90,25 @@ const Display = (props: Props) => {
     };
   }, []);
 
+  const handleReset = () => {
+    setTime(60); // Reset timer
+    setStarted(false); // Reset started state
+    counterRef.current = 0; // Reset typing test counter
+  }
+
   return (
     <>
       <div className="flex justify-between w-4/5 items-center text-white">
         {started ? (
-          <button className="bg-gradient-to-br from from-red-400 to-red-900 font-semibold px-7 rounded-md py-3">
+          <button onClick={handleReset} className="bg-gradient-to-br from from-red-400 to-red-900 font-semibold px-7 rounded-md py-3">
             Reset
           </button>
         ) : (
           <p className="ml-2 text-2xl font-mono font-semibold">
-            Press any key to start...
+            Press ENTER to start...
           </p>
         )}
-        <Timer started={started} />
+        <Timer started={started} time={time}/>
       </div>
       <div
         className="p-5 border-2 w-4/5 overflow-hidden font-semibold rounded-lg shadow-lg bg-gray-800 text-slate-500 text-4xl textBox bgred font-mono"

@@ -2,25 +2,50 @@ import React, { useEffect, useState } from "react";
 
 type Props = {
   started: boolean;
+  time: number;
 };
 
 const Timer = (props: Props) => {
-  const [time, setTime] = useState(60);
+  const [time, setTime] = useState(props.time);
+
+  // useEffect(() => {
+  //   console.log("first timer started");
+  //   let intervalId: NodeJS.Timeout | undefined;
+
+  //   if (props.started) {
+  //     intervalId = setInterval(() => {
+  //       setTime((prevTime) => prevTime - 1);
+  //     }, 1000);
+  //   }
+
+  //   return () => {
+  //     if (intervalId) clearInterval(intervalId);
+  //   };
+  // }, [props.started]);
 
   useEffect(() => {
-    console.log("first timer started")
     let intervalId: NodeJS.Timeout | undefined;
 
     if (props.started) {
       intervalId = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
+        setTime((prevTime) => {
+          if (prevTime > 0) {
+            return prevTime - 1;
+          } else {
+            clearInterval(intervalId);
+            return 0; // Stop the timer at 00:00
+          }
+        });
       }, 1000);
     }
-    
 
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
+  }, [props.started]);
+
+  useEffect(() => {
+    setTime(props.time);
   }, [props.started]);
 
   const formatTime = (time: number): string => {

@@ -1,16 +1,18 @@
 To-Do Features:
-3. Timer - 1min, 2min
-4. WPM - formulate words per minute
-5. Which keys are pressed wrong maximun number of times
-6. Multiple paragraphs based on dificulty
-7. Implementation of scrolling text after a para is over
+* Timer - 1min, 2min
+* WPM - formulate words per minute
+* Which keys are pressed wrong maximun number of times
+* Multiple paragraphs based on dificulty
+* Implementation of scrolling text after a para is over
+* User Login/Signup
 
 
 Bugs:
-2. Not showing wrong on first press, shows correct (Although I can say to press ENTER to start in such case it registers ENTER as first key and works fine)
+* Not showing wrong on first press, shows correct (Although I can say to press ENTER to start in such case it registers ENTER as first key and works fine)
+* Space not working
 
 
 Done:
-1. Timer going negative
-1. Cursor to show where user is
-2. Backspace to correct mistakes
+* Timer going negative
+* Cursor to show where user is
+* Backspace to correct mistakes

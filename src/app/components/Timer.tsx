@@ -8,20 +8,23 @@ type Props = {
 const Timer = (props: Props) => {
   const [time, setTime] = useState(props.time);
 
-  // useEffect(() => {
-  //   console.log("first timer started");
-  //   let intervalId: NodeJS.Timeout | undefined;
-
-  //   if (props.started) {
-  //     intervalId = setInterval(() => {
-  //       setTime((prevTime) => prevTime - 1);
-  //     }, 1000);
-  //   }
-
-  //   return () => {
-  //     if (intervalId) clearInterval(intervalId);
-  //   };
-  // }, [props.started]);
+  const sendData = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/wpm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: 6969,
+          sec: 1000,
+        }),
+      });
+      console.log(res);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | undefined;
@@ -33,6 +36,8 @@ const Timer = (props: Props) => {
             return prevTime - 1;
           } else {
             clearInterval(intervalId);
+            sendData();
+            window.location.href = "/stats";
             return 0; // Stop the timer at 00:00
           }
         });

@@ -21,16 +21,7 @@ const Timer = (props: Props) => {
       intervalId = setInterval(() => {
         props.time.current--;
         setDisplayTime((prev) => prev-1)
-        console.log("before zero")
-        // ((prevTime) => {
-        //   if (prevTime > 0) {
-        //     return prevTime - 1;
-        //   } else {
-        //     clearInterval(intervalId);
-        //     // sendData();
-            
-        //     return 0; // Stop the timer at 00:00
-        //   }
+
         if(props.time.current === 0){
           props.statsRedirect(props.time.current)
           clearInterval(intervalId);

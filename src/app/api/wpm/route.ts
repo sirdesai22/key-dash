@@ -21,11 +21,18 @@ export async function GET() {
     return Response.json({ data });
 }
 
+const calcStats = (correct:number, wrong:number, words:number) => {
+    const totalWords = correct/5
+    const accuracy = ((wrong/5)/totalWords) * 100
+    const wpm = totalWords
+}
+
 export async function POST(req: Request, res: Response) {
-   const d = await req.json();
+   const response = await req.json();
    const newData = {
-    data: d.correct,
-    sec: d.wrong
+    data: response.correct,
+    sec: response.wrong,
+    // words: data.words
    }
    data.speed = newData
    console.log("New data here",newData);

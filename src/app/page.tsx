@@ -33,7 +33,7 @@ export default function Home() {
 
   const redirectStats = async(time:number) => {
     try {
-      const response = await fetch("http://localhost:3000/api/wpm", {
+      const response = await fetch("/api/wpm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

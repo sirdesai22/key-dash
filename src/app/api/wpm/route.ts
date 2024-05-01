@@ -1,18 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 var data = {
-    wpm:{
-        data: 100,
-        sec: 200
+    wpm: {
+        data: 36,
+        // time: 200,
+        // accuracy: '100%'
     },
-    speed: {
-        data: 100,
-        sec: 200
+    time: {
+        data: '15s',
     },
     accuracy: {
-        data: 100,
-        sec: 200
-    },
+        data: '100%'
+    }
 }
 
 
@@ -21,20 +20,30 @@ export async function GET() {
     return Response.json({ data });
 }
 
-const calcStats = (correct:number, wrong:number, words:number) => {
-    const totalWords = correct/5
-    const accuracy = ((wrong/5)/totalWords) * 100
-    const wpm = totalWords
+const calcStats = (correct: number, wrong: number, time: number, totalWords: number) => {
+
+    const wpm = Math.round((totalWords / (time / 60)))
+    var accuracy = 0
+    if (correct === 0) accuracy = 0
+    if (wrong === 0) accuracy = 100
+    else accuracy = Math.round((correct / (correct+wrong)) * 100)
+
+    // accuracy = (wrong !== 0) ? (correct / (correct+wrong)) * 100 : '100'
+
+    // return { wpm: wpm, time: time, accuracy: `${accuracy}%` }
+    return {wpm:{data:wpm}, time: {data: String(time)+'s'}, accuracy: {data: String(accuracy)+'%'}}
 }
 
 export async function POST(req: Request, res: Response) {
-   const response = await req.json();
-   const newData = {
-    data: response.correct,
-    sec: response.wrong,
-    // words: data.words
-   }
-   data.speed = newData
-   console.log("New data here",newData);
-   return new Response("OK");
+    const response = await req.json();
+
+    const newData = calcStats(response.correct, response.wrong, response.time, response.totalWords)
+    // const newData = {
+    //     wpm: wpm,
+    //     time: response.time,
+    //     accuracy: `${accuracy}%`
+    // }
+    data = newData
+    console.log("New data here", newData);
+    return new Response("OK");
 }

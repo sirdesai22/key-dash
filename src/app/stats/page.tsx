@@ -5,8 +5,7 @@ import Card from "./Card";
 type Props = {};
 
 type StatData = {
-  data: number;
-  sec: number;
+  data: any;
 };
 
 const Stats = (props: Props) => {
@@ -34,14 +33,15 @@ const Stats = (props: Props) => {
       <div className=" w-full bg-[#252525] bg-dot-white/[0.6] relative flex items-center justify-center">
         {/* Radial gradient for the container to give a faded look */}
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-        <div className="flex flex-wrap gap-5 justify-center items-center h-screen w-full z-10">
+        <div className="flex flex-wrap gap-5 justify-evenly items-center h-screen w-full z-10">
           {/* {
             data.map((d, index)=> (
               <Card key={index} data={d} />
             ))
           } */}
-          {Object.entries(data).map(([key, value]) => (
-            <Card key={key} head={key} wpm={value.data} speed={value.sec} /> 
+
+          {Object.entries(data).map(([key, d]) => (
+            <Card key={key} head={key} data={d.data} /> 
           ))}
         </div>
       </div>

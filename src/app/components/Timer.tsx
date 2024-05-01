@@ -1,12 +1,12 @@
 "use client";
 import { uptime } from "process";
 import React, { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from "react";
+import { formatTime } from "../hooks/formatTime";
 
 type Props = {
   started: boolean;
   time: MutableRefObject<number>;
-  // setTime: Dispatch<SetStateAction<number>>
-  statsRedirect: (newValue: number) => void;
+  redirectStats: (newValue: number) => void;
   handleReset: () => void;
 };
 
@@ -17,14 +17,14 @@ const Timer = (props: Props) => {
   useEffect(() => {
     setDisplayTime(props.time.current)
     let intervalId: NodeJS.Timeout | undefined;
-    if (props.started) {
-      intervalId = setInterval(() => {
+    if (props.started) {  
+      intervalId = setInterval( async () => {
         props.time.current--;
         setDisplayTime((prev) => prev-1)
 
         if(props.time.current === 0){
-          props.statsRedirect(props.time.current)
           clearInterval(intervalId);
+          props.redirectStats(displayTime)
           return 0; 
         };
       }, 1000);
@@ -38,14 +38,6 @@ const Timer = (props: Props) => {
   // useEffect(() => {
   //   props.setTime(time);
   // }, [props.started]);
-
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  };
 
   return (
     <div className="flex justify-between w-4/5 items-center text-white">

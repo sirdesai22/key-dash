@@ -11,3 +11,9 @@ export function renderTexts(){
         );
     return {text: spans.join(""), length: length}
 }
+
+// export function renderTexts(){
+//     const text = texts[Math.floor(Math.random() * texts.length)].txt;
+//     console.log(text)
+//     return text
+// }

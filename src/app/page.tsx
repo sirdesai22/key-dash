@@ -46,7 +46,7 @@ export default function Home() {
         body: JSON.stringify({
           correct: correctWords.current,
           wrong: wrongWords.current,
-          time: time,
+          time: 15,
           totalWords: totalWords.current
         }),
       });
@@ -92,7 +92,7 @@ export default function Home() {
         }
       }
 
-      if (keyPressed === "Backspace") {
+      if (keyPressed === "Backspace" && counter > 0) {
         counter--;
         const spanElements = document.querySelectorAll(".textBox > span");
         if (counter < spanElements.length) {

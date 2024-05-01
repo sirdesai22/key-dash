@@ -10,7 +10,7 @@ import Timer from "./components/Timer";
 export default function Home() {
   const [started, setStarted] = useState(false);
   // const [time, setTime] = useState(15);
-  const time = useRef(10);
+  const time = useRef(15);
 
   const handleReset = () => {
     setStarted(false); // Reset started state

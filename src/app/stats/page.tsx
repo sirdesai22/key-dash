@@ -14,7 +14,7 @@ const Stats = (props: Props) => {
   useEffect(() => {
     const fetchWPM = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/wpm");
+        const res = await fetch("/api/wpm");
         const jsonData = await res.json();
         setData(jsonData.data);
       } catch (error) {

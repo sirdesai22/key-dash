@@ -21,26 +21,33 @@ export default function Home() {
 
   useEffect(() => {
     const data = renderTexts();
-    totalWords = data.length;
+    totalWords.current = data.length;
+    console.log(totalWords);
     setCaptureKeys(data.text);
   }, [texts]);
 
   // Check correct and wrongs keys on keyboard events
-  var totalWords = 0;
+  var totalWords = useRef(0);
   var counter = 0;
-  var correctWords = 0;
-  var wrongWords = 0;
+  var correctWords = useRef(0);
+  var wrongWords = useRef(0);
+
+  const setWords = () => {
+    redirectStats(time.current);
+  }
 
   const redirectStats = async(time:number) => {
+    // const correct = correctWords
+    // const wrong = wrongWords
     try {
       const response = await fetch("/api/wpm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          correct: correctWords,
-          wrong: wrongWords,
+          correct: correctWords.current,
+          wrong: wrongWords.current,
           time: time,
-          totalWords: totalWords
+          totalWords: totalWords.current
         }),
       });
 
@@ -73,11 +80,11 @@ export default function Home() {
           if (keyPressed === span.innerHTML) {
             span.style.color = "yellow";
             span.style.textDecoration = "none";
-            correctWords++;
+            correctWords.current++;
           } else {
             span.style.color = "red";
             span.style.textDecoration = "none";
-            wrongWords++;
+            wrongWords.current++;
           }
           counter++;
         } else {
@@ -116,7 +123,7 @@ export default function Home() {
         {/* Radial gradient for the container to give a faded look */}
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="flex flex-col justify-center items-center h-screen w-full z-10">
-          <Timer started={started} time={time} redirectStats={redirectStats} handleReset={handleReset}/>
+          <Timer started={started} time={time} redirectStats={setWords} handleReset={handleReset}/>
 
           {/* Display  */}
           <div

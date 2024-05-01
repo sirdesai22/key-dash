@@ -21,8 +21,9 @@ export async function GET() {
 }
 
 const calcStats = (correct: number, wrong: number, time: number, totalWords: number) => {
-
-    const wpm = Math.round((totalWords / (time / 60)))
+    const words = Math.floor(correct / 5)
+    const wpm = Math.round(words / (15/60))
+    // const wpm = totalWords
     var accuracy = 0
     if (correct === 0) accuracy = 0
     if (wrong === 0) accuracy = 100

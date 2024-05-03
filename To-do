@@ -1,6 +1,5 @@
 To-Do Features:
 * Timer - 1min, 2min
-* WPM - formulate words per minute
 * Which keys are pressed wrong maximun number of times
 * Multiple paragraphs based on dificulty
 * Implementation of scrolling text after a para is over
@@ -10,9 +9,3 @@ To-Do Features:
 Bugs:
 * Not showing wrong on first press, shows correct (Although I can say to press ENTER to start in such case it registers ENTER as first key and works fine)
 * Space not working
-
-
-Done:
-* Timer going negative
-* Cursor to show where user is
-* Backspace to correct mistakes

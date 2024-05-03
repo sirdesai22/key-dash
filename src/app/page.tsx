@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const data = renderTexts();
     totalWords.current = data.length;
-    console.log(totalWords);
+    // console.log(totalWords);
     setCaptureKeys(data.text);
   }, [texts]);
 
@@ -127,7 +127,7 @@ export default function Home() {
 
           {/* Display  */}
           <div
-            className="p-5 border-2 w-4/5 overflow-hidden font-semibold rounded-lg shadow-lg bg-gray-800 text-slate-500 text-4xl textBox bgred font-mono"
+            className="p-5 border-2 w-4/5 overflow-hidden font-semibold  rounded-lg shadow-lg bg-gray-800 text-slate-500 text-4xl textBox bgred font-mono"
             dangerouslySetInnerHTML={{ __html: captureKeys as string }}
           ></div>
         </div>

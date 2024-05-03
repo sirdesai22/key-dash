@@ -16,7 +16,7 @@ var data = {
 
 
 export async function GET() {
-    console.log("new newer request")
+    // console.log("new newer request")
     return Response.json({ data });
 }
 
@@ -26,7 +26,7 @@ const calcStats = (correct: number, wrong: number, time: number, totalWords: num
     // const wpm = totalWords
     var accuracy = 0
     if (correct === 0) accuracy = 0
-    if (wrong === 0) accuracy = 100
+    if (wrong === 0 && correct === 0) accuracy = 0
     else accuracy = Math.round((correct / (correct+wrong)) * 100)
 
     // accuracy = (wrong !== 0) ? (correct / (correct+wrong)) * 100 : '100'
@@ -45,6 +45,6 @@ export async function POST(req: Request, res: Response) {
     //     accuracy: `${accuracy}%`
     // }
     data = newData
-    console.log("New data here", newData);
+    // console.log("New data here", newData);
     return new Response("OK");
 }

@@ -2,10 +2,13 @@
 // import Display from "./components/Display";
 import { useEffect, useRef, useState } from "react";
 // import Timer from "./components/Timer";
-import { formatTime } from "./hooks/formatTime";
-import { renderTexts } from "./hooks/renderTexts";
+import { formatTime } from "../hooks/formatTime";
+import { renderTexts } from "../hooks/renderTexts";
 import texts from "@/SampleTexts/easyTexts";
-import Timer from "./components/Timer";
+import Timer from "../components/Timer";
+import Navbar from "@/components/Navbar";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/config/firebase-config";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -13,6 +16,7 @@ export default function Home() {
   const time = useRef(15);
 
   const handleReset = () => {
+    counter.current = 0;
     setStarted(false); // Reset started state
     time.current = 15; // Reset typing test counter
   };
@@ -24,19 +28,19 @@ export default function Home() {
     totalWords.current = data.length;
     // console.log(totalWords);
     setCaptureKeys(data.text);
-  }, [texts]);
+  }, [texts, setStarted]);
 
   // Check correct and wrongs keys on keyboard events
   var totalWords = useRef(0);
-  var counter = 0;
+  var counter = useRef(0);
   var correctWords = useRef(0);
   var wrongWords = useRef(0);
 
   const setWords = () => {
     redirectStats(time.current);
-  }
+  };
 
-  const redirectStats = async(time:number) => {
+  const redirectStats = async (time: number) => {
     // const correct = correctWords
     // const wrong = wrongWords
     try {
@@ -47,21 +51,19 @@ export default function Home() {
           correct: correctWords.current,
           wrong: wrongWords.current,
           time: 15,
-          totalWords: totalWords.current
+          totalWords: totalWords.current,
         }),
       });
 
       if (!response.ok) {
-        throw new Error(
-          `API request failed with status ${response.status}`
-        );
+        throw new Error(`API request failed with status ${response.status}`);
       }
       // statsRedirect(0);
-      window.location.href = '/stats'
+      window.location.href = "/stats";
     } catch (error) {
       console.error("Error:", error);
     }
-  }
+  };
 
   useEffect(() => {
     const captureKeydown = async (event: KeyboardEvent) => {
@@ -73,9 +75,9 @@ export default function Home() {
       }
       if (isAlphabetic) {
         const spanElements = document.querySelectorAll(".textBox > span");
-        if (counter < spanElements.length - 1) {
-          const span = spanElements[counter] as HTMLElement;
-          const nextSpan = spanElements[counter + 1] as HTMLElement;
+        if (counter.current < spanElements.length - 1) {
+          const span = spanElements[counter.current] as HTMLElement;
+          const nextSpan = spanElements[counter.current + 1] as HTMLElement;
           nextSpan.style.textDecoration = "underline";
           if (keyPressed === span.innerHTML) {
             span.style.color = "yellow";
@@ -86,18 +88,18 @@ export default function Home() {
             span.style.textDecoration = "none";
             wrongWords.current++;
           }
-          counter++;
+          counter.current++;
         } else {
           redirectStats(time.current);
         }
       }
 
-      if (keyPressed === "Backspace" && counter > 0) {
-        counter--;
+      if (keyPressed === "Backspace" && counter.current > 0) {
+        counter.current--;
         const spanElements = document.querySelectorAll(".textBox > span");
-        if (counter < spanElements.length) {
-          const span = spanElements[counter] as HTMLElement;
-          const nextSpan = spanElements[counter + 1] as HTMLElement;
+        if (counter.current < spanElements.length) {
+          const span = spanElements[counter.current] as HTMLElement;
+          const nextSpan = spanElements[counter.current + 1] as HTMLElement;
           nextSpan.style.textDecoration = "none";
 
           span.style.color = "#64748b";
@@ -117,13 +119,31 @@ export default function Home() {
     };
   }, []);
 
+  const [user, setUser] = useState(false);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUser(true);
+    }
+  });
+
   return (
     <>
       <div className=" w-full bg-[#252525] bg-dot-white/[0.6] relative flex items-center justify-center">
         {/* Radial gradient for the container to give a faded look */}
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        {
+          user
+          ?<Navbar />
+          :<></>
+        }
         <div className="flex flex-col justify-center items-center h-screen w-full z-10">
-          <Timer started={started} time={time} redirectStats={setWords} handleReset={handleReset}/>
+          <Timer
+            started={started}
+            time={time}
+            redirectStats={setWords}
+            handleReset={handleReset}
+          />
 
           {/* Display  */}
           <div

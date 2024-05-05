@@ -1,7 +1,6 @@
 "use client";
-import { uptime } from "process";
-import React, { Dispatch, MutableRefObject, SetStateAction, useEffect, useState } from "react";
-import { formatTime } from "../hooks/formatTime";
+import React, { MutableRefObject, useEffect, useState } from "react";
+import { formatTime } from '../hooks/formatTime';
 
 type Props = {
   started: boolean;

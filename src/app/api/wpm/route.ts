@@ -2,15 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 var data = {
     wpm: {
-        data: 36,
+        data: 0,
         // time: 200,
         // accuracy: '100%'
     },
     time: {
-        data: '15s',
+        data: '00s',
     },
     accuracy: {
-        data: '100%'
+        data: '0%'
     }
 }
 

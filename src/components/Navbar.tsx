@@ -12,6 +12,7 @@ const Navbar = (props: Props) => {
     const handleSignout = () => {
         try {
           signOut(auth);
+          window. location. reload();
         } catch (error) {
           console.log(error);
         }

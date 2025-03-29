@@ -1,30 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🔠 Next.js Typing Speed Test
 
-## Getting Started
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). The application helps users practice typing speed and accuracy while tracking key metrics.
 
-First, run the development server:
+## 🚀 Getting Started
+
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to start typing!
 
-To-Do Features:
-* Timer - 1min, 2min
-* WPM - formulate words per minute
-* Which keys are pressed wrong maximun number of times
-* Multiple paragraphs based on dificulty
-* Implementation of scrolling text after a para is over
-* User Login/Signup
+## 🎯 Features (To-Do)
 
+- ⏳ **Timer**: Set duration (1min, 2min) for the test.
+- 🏃 **WPM Calculation**: Measure words per minute accurately.
+- ❌ **Error Tracking**: Identify keys pressed incorrectly most frequently.
+- 📜 **Varied Content**: Multiple paragraphs based on difficulty levels.
+- 📜 **Scrolling Text**: Implement auto-scrolling after completing a paragraph.
+- 🔑 **User Authentication**: Login/Signup functionality for tracking progress.
 
-Bugs:
-* Not showing wrong on first press, shows correct (Although I can say to press ENTER to start in such case it registers ENTER as first key and works fine)
-* Space not working
+## 🐞 Known Bugs
 
+- ❌ **First Key Issue**: Incorrect keypress not registering initially (Potential Fix: Require ENTER to start test, but ENTER registers as first key).
+- 🔲 **Space Key Issue**: Spacebar not functioning correctly during typing test.
 
-Done:
-* Timer going negative
-* Cursor to show where user is
-* Backspace to correct mistakes
+## ✅ Completed Fixes
+
+- ⏬ **Negative Timer**: Timer no longer goes below zero.
+- 🔍 **Cursor Positioning**: Cursor now accurately shows user progress.
+- 🔙 **Backspace Handling**: Allows users to correct mistakes efficiently.
+
+## 🤝 Contributing
+
+We welcome contributions! To contribute:
+
+1. Fork the repository
+2. Create a new branch
+3. Make improvements
+4. Submit a pull request
+
+---
+
+**Improve your typing speed and accuracy with this interactive tool! 🚀🔠**
